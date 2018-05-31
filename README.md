@@ -19,7 +19,7 @@ package_a depends on package_b
 
 ### Here is the problem
 
-here is the source structure for:
+here is the source structure for package_a:
 
 ```
 /src
@@ -31,7 +31,7 @@ and a.ts looks like:
 ```
 import * as x from 'lodash';
 
-export {Foo} from '@oresoftware/package_b/dts/b'
+export {Foo} from '@oresoftware/package_b/dts/b'  
 
 console.log(x);
 ```
@@ -65,7 +65,7 @@ The *problem* is it's trying to load:
 var b_1 = require("@oresoftware/package_b/dts/b");
 ```
 
-at runtime, even though this is a .d.ts file!
+at runtime, even though this is a `.d.ts` file!
 
 My guess is that `tsc` just guesses that it's loadable,
 because it could not find the file at compile time.
@@ -74,7 +74,7 @@ because it could not find the file at compile time.
 How to fix the problem!
 
 If you cd into package_a and run `npm install`, and then run `tsc`, the problem goes away,
-we now have this dist/a.js file:
+we now have this `dist/a.js` file:
 
 ```js
 "use strict";
@@ -84,3 +84,10 @@ console.log(x);
 ```
 
 so, idk if this is a bug or not.
+
+<br>
+In summary, if the .d.ts files are present `tsc` knows what they are obviously.
+If the .d.ts files are missing, it assumes that they are .js files and generates
+code to load those files at runtime which then breaks at runtime because
+the files are not .js files.
+</b>
