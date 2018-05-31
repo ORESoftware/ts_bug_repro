@@ -3,6 +3,10 @@
     "outDir":"dist",
     "allowJs": false,
     "pretty": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@oresoftware/package_b/dts"
+    ],
     "skipLibCheck": true,
     "declaration": true,
     "baseUrl": ".",
