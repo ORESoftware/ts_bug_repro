@@ -19,7 +19,7 @@ package_a depends on package_b
 
 ### Here is the problem
 
-here is the source structure:
+here is the source structure for:
 
 ```
 /src
