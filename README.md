@@ -14,8 +14,7 @@ In package_a, we have a tsconfig.json file with these typeRoots:
 
 
 package_a depends on package_b
-
-(they are published to @oresoftware/package_a and @oresoftware/package_b)
+(they are published to @oresoftware/package_a and @oresoftware/package_b, but you don't need to use NPM to reproduce the problem)
 
 
 ### Here is the problem
@@ -60,3 +59,28 @@ console.log(x);
 ```
 
 
+The *problem* is it's trying to load:
+
+```
+var b_1 = require("@oresoftware/package_b/dts/b");
+```
+
+at runtime, even though this is a .d.ts file!
+
+My guess is that `tsc` just guesses that it's loadable,
+because it could not find the file at compile time.
+
+
+How to fix the problem!
+
+If you cd into package_a and run `npm install`, and then run `tsc`, the problem goes away,
+we now have this dist/a.js file:
+
+```js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const x = require("lodash");
+console.log(x);
+```
+
+so, idk if this is a bug or not.

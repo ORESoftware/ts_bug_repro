@@ -3,8 +3,7 @@
   "version": "0.0.101",
   "description": "Semver-oriented TypeScript library skeleton.",
   "scripts": {
-    "test": "suman test",
-    "postinstall": "./assets/postinstall.sh"
+    "test": "suman test"
   },
   "repository": {
     "type": "git",
